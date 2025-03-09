@@ -1,0 +1,16 @@
+{
+  "name": "readwise-new-highlights-email",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "https://github.com/mrbusche",
+  "type": "commonjs",
+  "main": "export.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "nodemailer": "^6.10.0"
+  }
+}
