@@ -1,5 +1,5 @@
-require("dotenv").config();
-const nodemailer = require("nodemailer");
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 const readwiseToken = process.env.READWISE_API_KEY;
 const senderEmail = process.env.SENDER_EMAIL;
@@ -8,21 +8,16 @@ const recipientEmails = process.env.RECIPIENT_EMAILS;
 
 const fetchFromExportApi = async (updatedAfter = null) => {
   const queryParams = new URLSearchParams();
-  queryParams.append("updatedAfter", updatedAfter);
-  console.log(
-    "Making export api request with params " + queryParams.toString()
-  );
-  const response = await fetch(
-    "https://readwise.io/api/v2/export/?" + queryParams.toString(),
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Token ${readwiseToken}`,
-      },
-    }
-  );
+  queryParams.append('updatedAfter', updatedAfter);
+  console.log('Making export api request with params ' + queryParams.toString());
+  const response = await fetch('https://readwise.io/api/v2/export/?' + queryParams.toString(), {
+    method: 'GET',
+    headers: {
+      Authorization: `Token ${readwiseToken}`,
+    },
+  });
   const responseJson = await response.json();
-  return responseJson["results"];
+  return responseJson['results'];
 };
 
 const generateHtml = async () => {
@@ -35,34 +30,32 @@ const generateHtml = async () => {
   data.forEach((book) => htmlParts.push(renderBook(book)));
   htmlParts.push(htmlFooter);
 
-  return htmlParts.join("");
+  return htmlParts.join('');
 };
 
 const sendEmail = async () => {
   const html = await generateHtml();
-  // Create a transporter using Gmail service
+
   let transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     auth: {
       user: senderEmail,
       pass: emailPassword,
     },
   });
 
-  // Set up email data with unicode symbols
   let mailOptions = {
     from: senderEmail,
     to: recipientEmails,
-    subject: "Weekly Readwise Export",
+    subject: 'Weekly Readwise Export',
     html: html,
   };
 
-  // Send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      return console.error("Error sending email:", error);
+      return console.error('Error sending email:', error);
     }
-    console.log("Email sent successfully:", info.response);
+    console.log('Email sent successfully:', info.response);
   });
 };
 
@@ -116,7 +109,7 @@ const renderBook = (book) => `
           <div class="highlights">
             <h3>Highlights:</h3>
             <ul>
-              ${book.highlights.map(renderHighlight).join("")}
+              ${book.highlights.map(renderHighlight).join('')}
             </ul>
           </div>
         </div>
@@ -126,11 +119,7 @@ const renderBook = (book) => `
 const renderHighlight = (highlight) => `
     <li>
       <p><strong>Text:</strong> ${highlight.text}</p>
-      ${
-        highlight.note.length
-          ? `<p><strong>Note:</strong> ${highlight.note}</p>`
-          : ""
-      }
+      ${highlight.note.length ? `<p><strong>Note:</strong> ${highlight.note}</p>` : ''}
       <p>
         <strong>Readwise URL:</strong>
         <a href="${highlight.readwise_url}">${highlight.readwise_url}</a>
