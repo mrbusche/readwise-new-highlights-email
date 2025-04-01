@@ -25,9 +25,18 @@ const generateHtml = async () => {
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
   const data = await fetchFromExportApi(oneWeekAgo.toISOString());
 
+  const isMyHighlight = (highlight, threshold) => highlight.highlighted_at && Date.parse(highlight.highlighted_at) >= threshold;
+
+  const filteredData = data
+    .map((book) => ({
+      ...book,
+      highlights: book.highlights.filter((highlight) => isMyHighlight(highlight, oneWeekAgo)),
+    }))
+    .filter((book) => book.highlights.length > 0);
+
   const htmlParts = [];
   htmlParts.push(htmlHeader);
-  data.forEach((book) => htmlParts.push(renderBook(book)));
+  filteredData.forEach((book) => htmlParts.push(renderBook(book)));
   htmlParts.push(htmlFooter);
 
   return htmlParts.join('');
