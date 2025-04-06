@@ -9,15 +9,15 @@ const recipientEmails = process.env.RECIPIENT_EMAILS;
 const fetchFromExportApi = async (updatedAfter = null) => {
   const queryParams = new URLSearchParams();
   queryParams.append('updatedAfter', updatedAfter);
-  console.log('Making export api request with params ' + queryParams.toString());
-  const response = await fetch('https://readwise.io/api/v2/export/?' + queryParams.toString(), {
+  console.log(`Making export api request with params ${queryParams.toString()}`);
+  const response = await fetch(`https://readwise.io/api/v2/export/?${queryParams.toString()}`, {
     method: 'GET',
     headers: {
       Authorization: `Token ${readwiseToken}`,
     },
   });
   const responseJson = await response.json();
-  return responseJson['results'];
+  return responseJson.results;
 };
 
 const generateHtml = async () => {
@@ -27,7 +27,9 @@ const generateHtml = async () => {
 
   const htmlParts = [];
   htmlParts.push(htmlHeader);
-  data.forEach((book) => htmlParts.push(renderBook(book)));
+  for (const book of data) {
+    htmlParts.push(renderBook(book));
+  }
   htmlParts.push(htmlFooter);
 
   return htmlParts.join('');
@@ -36,7 +38,7 @@ const generateHtml = async () => {
 const sendEmail = async () => {
   const html = await generateHtml();
 
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: senderEmail,
@@ -44,7 +46,7 @@ const sendEmail = async () => {
     },
   });
 
-  let mailOptions = {
+  const mailOptions = {
     from: senderEmail,
     to: recipientEmails,
     subject: 'Weekly Readwise Export',
@@ -118,7 +120,13 @@ const renderBook = (book) => `
 
 const renderHighlight = (highlight) => `
     <li>
-      <p><strong>Text:</strong> ${highlight.text}</p>
+      <p>
+        <strong>
+          ${highlight.highlighted_at ? '⭐' : ''}
+          Text:
+        </strong>
+        ${highlight.text}
+      </p>
       ${highlight.note.length ? `<p><strong>Note:</strong> ${highlight.note}</p>` : ''}
       <p>
         <strong>Readwise URL:</strong>
@@ -127,6 +135,6 @@ const renderHighlight = (highlight) => `
     </li>
   `;
 
-const htmlFooter = `</body></html>`;
+const htmlFooter = '</body></html>';
 
 sendEmail();
