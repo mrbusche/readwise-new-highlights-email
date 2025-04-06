@@ -21,6 +21,7 @@
     "singleQuote": true
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "prettier": "^3.5.3"
   }
 }
