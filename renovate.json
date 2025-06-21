@@ -11,8 +11,6 @@
       "enabled": true
     }
   ],
-  "assignees": [
-    "@mrbusche"
-  ],
+  "assignees": ["@mrbusche"],
   "ignoreUnstable": false
 }
