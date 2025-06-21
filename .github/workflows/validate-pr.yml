@@ -21,6 +21,9 @@ jobs:
     - name: Install dependencies
       run: yarn install --immutable
 
+    - name: Make biome executable
+      run: chmod +x ./node_modules/@biomejs/cli-linux-x64/biome
+
     - name: Run Prettier
       run: yarn run prettier:fix
 
