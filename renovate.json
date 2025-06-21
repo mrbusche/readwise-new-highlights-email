@@ -10,5 +10,9 @@
       "matchPaths": [".nvmrc"],
       "enabled": true
     }
-  ]
+  ],
+  "assignees": [
+    "@mrbusche"
+  ],
+  "ignoreUnstable": false
 }
