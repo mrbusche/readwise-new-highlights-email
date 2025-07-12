@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
   "packageRules": [
     {
       "matchManagers": ["npm"],
@@ -7,7 +7,7 @@
     },
     {
       "matchManagers": ["nvm"],
-      "matchPaths": [".nvmrc"],
+      "matchFileNames": [".nvmrc"],
       "enabled": true
     }
   ],
