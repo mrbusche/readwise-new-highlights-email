@@ -15,6 +15,6 @@
     "nodemailer": "7.0.9"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.6"
+    "@biomejs/biome": "2.2.7"
   }
 }
