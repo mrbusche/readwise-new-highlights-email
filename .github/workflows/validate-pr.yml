@@ -1,4 +1,4 @@
-name: Prettier Fix
+name: Formatter Fix
 
 on:
   pull_request:
@@ -6,29 +6,26 @@ on:
       - main
 
 jobs:
-  prettier:
+  formatter:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
+      - name: Checkout code
+        uses: actions/checkout@v6
 
-    - name: Enable Corepack
-      run: corepack enable
+      - name: Enable Corepack
+        run: corepack enable
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v6
-      with:
-        node-version-file: '.nvmrc'
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
 
-    - name: Install dependencies
-      run: yarn install --immutable
+      - name: Install dependencies
+        run: yarn install --immutable
 
-    - name: Make biome executable
-      run: chmod +x ./node_modules/@biomejs/cli-linux-x64/biome
+      - name: Run Formatter
+        run: yarn run fmt
 
-    - name: Run Prettier
-      run: yarn run prettier:fix
-
-    - name: Check for changes
-      run: git diff --exit-code
+      - name: Check for changes
+        run: git diff --exit-code
