@@ -16,7 +16,7 @@
     "nodemailer": "8.0.5"
   },
   "devDependencies": {
-    "oxfmt": "0.44.0",
+    "oxfmt": "0.45.0",
     "oxlint": "1.60.0"
   },
   "packageManager": "yarn@4.13.0"
