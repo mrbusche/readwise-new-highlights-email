@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "dotenv": "17.4.2",
-    "nodemailer": "8.0.6"
+    "nodemailer": "8.0.7"
   },
   "devDependencies": {
     "oxfmt": "0.47.0",
