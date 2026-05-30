@@ -19,6 +19,7 @@
     }
   ],
   "assignees": ["@mrbusche"],
+  "skipInstalls": false,
   "ignoreUnstable": false,
   "commitMessagePrefix": "chore(deps): "
 }
