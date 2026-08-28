@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "dotenv": "17.4.2",
-    "nodemailer": "9.0.5"
+    "nodemailer": "9.0.6"
   },
   "devDependencies": {
-    "oxfmt": "0.64.0",
-    "oxlint": "1.79.0"
+    "oxfmt": "0.65.0",
+    "oxlint": "1.80.0"
   },
   "packageManager": "yarn@4.18.0"
 }
